@@ -9,8 +9,14 @@ function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 800, height: 600})
 
-  // and load the index.html of the app.
-  mainWindow.loadURL('http://localhost:3000')
+  // App Entry Point
+  if ( process.env.ELECTRON_ENV === 'development' ) {
+    // Dev
+    mainWindow.loadURL('http://localhost:3000')
+  } else {
+    // Prod
+    mainWindow.loadURL('http://localhost:4000')
+  }
 
   // Run the Go API Server
   const { execFile } = require('child_process')
