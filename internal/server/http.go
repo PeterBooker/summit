@@ -1,10 +1,14 @@
 package server
 
 import (
-	"context"
+	"encoding/json"
+	"log"
 	"net/http"
+	"strings"
+	"time"
 
 	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/middleware"
 )
 
 // startHTTP starts the HTTP server.
@@ -12,15 +16,15 @@ func (s *Server) startHTTP() {
 	s.router = chi.NewRouter()
 
 	// Middleware Stack
-	s.Router.Use(middleware.Logger)
-	s.Router.Use(middleware.Recoverer)
-	s.Router.Use(middleware.DefaultCompress)
-	s.Router.Use(middleware.RedirectSlashes)
+	s.router.Use(middleware.Logger)
+	s.router.Use(middleware.Recoverer)
+	s.router.Use(middleware.DefaultCompress)
+	s.router.Use(middleware.RedirectSlashes)
 
 	// Set a timeout value on the request context (ctx), that will signal
 	// through ctx.Done() that the request has timed out and further
 	// processing should be stopped.
-	s.Router.Use(middleware.Timeout(15 * time.Second))
+	s.router.Use(middleware.Timeout(15 * time.Second))
 
 	FileServer(s.router, "/assets")
 
@@ -38,7 +42,7 @@ func (s *Server) startHTTP() {
 
 func (s *Server) routes() {
 	// Add Routes
-	s.Router.Get("/", s.static())
+	s.router.Get("/", s.static())
 
 	// Need to disable RedirectSlashes middleware to enable this
 	// redirects to /debug/prof/ which causes redirect loop
@@ -66,7 +70,7 @@ func FileServer(r chi.Router, path string) {
 		panic("FileServer does not permit URL parameters.")
 	}
 
-	fs := http.FileServer(data.Assets)
+	fs := http.FileServer(http.Dir("/"))
 
 	if path != "/" && path[len(path)-1] != '/' {
 		r.Get(path, http.RedirectHandler(path+"/", 301).ServeHTTP)

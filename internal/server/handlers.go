@@ -1,6 +1,15 @@
 package server
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/go-chi/chi"
+)
+
+type errResponse struct {
+	Code string `json:"code,omitempty"`
+	Err  string `json:"error"`
+}
 
 func (s *Server) static() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -8,7 +17,7 @@ func (s *Server) static() http.HandlerFunc {
 		w.Header().Set("Vary", "Accept-Encoding")
 
 		w.Write([]byte(`Index Page`))
-	} 
+	}
 }
 
 func (s *Server) notFound() http.HandlerFunc {
@@ -24,7 +33,7 @@ func (s *Server) notFound() http.HandlerFunc {
 // getThing fetches the data for a thing by ID
 func (s *Server) getThing() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		if thingID := chi.URLParam(r, "id"); searchID != "" {
+		if thingID := chi.URLParam(r, "id"); thingID != "" {
 			// Get Thing with ID
 			thing := ""
 			writeResp(w, thing)

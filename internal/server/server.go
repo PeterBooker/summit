@@ -2,10 +2,10 @@ package server
 
 import (
 	"context"
+	"log"
 	"net/http"
 
 	"github.com/PeterBooker/summit/internal/config"
-	"github.com/PeterBooker/summit/internal/log"
 	"github.com/go-chi/chi"
 )
 

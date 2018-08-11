@@ -11,6 +11,12 @@ import (
 	"github.com/PeterBooker/summit/internal/server"
 )
 
+var (
+	version string
+	commit  string
+	date    string
+)
+
 func main() {
 	// Create Logger
 	l := log.New()
