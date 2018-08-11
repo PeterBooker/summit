@@ -12,6 +12,15 @@ function createWindow () {
   // and load the index.html of the app.
   mainWindow.loadURL('http://localhost:3000')
 
+  // Run the Go API Server
+  const { execFile } = require('child_process')
+  const child = execFile('summit.exe', (error, stdout, stderr) => {
+    if (error) {
+      throw error
+    }
+    console.log(stdout)
+  })
+
   // Create custom Menu
   // https://electronjs.org/docs/api/menu#examples
   const template = [

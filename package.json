@@ -1,6 +1,7 @@
 {
   "name": "summit",
   "version": "0.1.0",
+  "homepage": "./",
   "private": true,
   "dependencies": {
     "autoprefixer": "7.1.6",
@@ -50,7 +51,8 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "electron": "electron ."
+    "electron": "electron .",
+    "dev": "concurrently \"set BROWSER=none&&npm start\" \"wait-on http://localhost:3000/ && electron .\""
   },
   "jest": {
     "collectCoverageFrom": [
@@ -93,5 +95,9 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "devDependencies": {
+    "concurrently": "^3.6.1",
+    "wait-on": "^2.1.0"
   }
 }
