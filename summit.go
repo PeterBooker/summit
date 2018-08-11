@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"os"
-	"signal"
+	"os/signal"
 	"time"
 
 	"github.com/PeterBooker/summit/internal/config"
