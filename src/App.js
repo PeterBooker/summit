@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import Dialog from './components/electron/Dialog.js'
+import logo from './logo.svg'
+import './App.css'
 
 class App extends Component {
   render() {
@@ -13,9 +14,10 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <Dialog />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

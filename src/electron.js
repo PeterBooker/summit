@@ -8,7 +8,14 @@ let mainWindow
 
 function createWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: false,
+      preload: __dirname + '/electron/preload.js'
+    }
+  })
 
   // App Entry Point
   if ( process.env.ELECTRON_ENV === 'development' ) {
