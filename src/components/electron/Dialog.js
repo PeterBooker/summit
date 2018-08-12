@@ -8,13 +8,6 @@ const dialogOptions = {
 }
 
 export default class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      interval: 0,
-    }
-  }
-
   handleClick = () => {
     window.remote.dialog.showMessageBox(dialogOptions, (index) => {
       console.log('information-dialog-selection', index)
