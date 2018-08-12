@@ -21,12 +21,9 @@ function createWindow() {
 
   // Run the Go API Server
   const { execFile } = require('child_process')
-  const child = execFile('summit.exe', (error, stdout, stderr) => {
-    if (error) {
-      throw error
-    }
-    console.log(stdout)
-  })
+  const child = execFile('summit')
+  // Send stdout to main process so it is visible from cmd
+  child.stdout.pipe( process.stdout )
 
   // Create custom Menu
   // https://electronjs.org/docs/api/menu#examples
